@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+    #app {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+    }
+
+    .app-to-end {
+      top: 100px;
+    }
+
+    .animate-on-transforms {
+      transition: all 2s;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="btn">btn</button>
+  <div id="app"></div>
+
+  <script>
+    //js
+    var app = document.getElementById('app');
+    var btn = document.getElementById('btn');
+    var first = app.getBoundingClientRect(); // First
+
+    app.classList.add('app-to-end');
+    var last = app.getBoundingClientRect(); // Last
+
+    var invert = first.top - last.top;
+    //使元素看起来好像在起始点
+    app.style.transform = `translateY(${invert}px)`; // Invert
+
+    requestAnimationFrame(function () {
+      app.style.transform = 'translateY(0px)';
+      //启用tansition，并移除翻转的改变
+      app.classList.add('animate-on-transforms');
+      
+    });
+
+    // app.addEventListener('transitionend', () => {
+    //   app.classList.remove('animate-on-transforms');
+    // })
+
+    // Get the first position.
+    // var el = document.getElementById('app');
+    // var first = el.getBoundingClientRect();
+
+    // // Move it to the end.
+    // el.classList.add('app-to-end');
+
+    // // Get the last position.
+    // var last = el.getBoundingClientRect();
+
+    // // Invert.
+    // var invert = first.top - last.top;
+
+    // // Go from the inverted position to last.
+    // var player = el.animate([
+    //   { transform: `translateY(${invert}px)` },
+    //   { transform: 'translateY(0)' }
+    // ], {
+    //   duration: 3000,
+    //   easing: 'cubic-bezier(0,0,0.32,1)',
+    // });
+
+    // Do any tidy up at the end
+    // of the animation.
+    player.addEventListener('finish',
+      tidyUpAnimations);
+  </script>
+</body>
+
+</html>

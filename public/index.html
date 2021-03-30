@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    .wrap {
+      width: 500px;
+      display: flex;
+      flex-wrap: wrap;
+      border: 1px solid #ccc;
+    }
+
+    .img {
+      width: 25%;
+    }
+
+    .container {
+      margin: 50px auto;
+      width: 450px;
+      height: 450px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .c-random__brand {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      box-sizing: border-box;
+      line-height: 50px;
+      border: 1px solid #000;
+    }
+
+    button {
+      padding: 10px 20px;
+    }
+
+    #reactContainer {
+      width: 100%;
+      height: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button id="btn">btn</button>
+    <button id="mobxBtnIncrease">mobx btn increase</button>
+    <button id="mobxBtnDecrease">mobx btn decrease</button>
+    <button id="mobxBtnAsyncDecrease">mobx btn async decrease</button>
+    <hr>
+
+    <div class="container"></div>
+    
+    <div id="reactContainer"></div>
+  </div>
+
+  
+</body>
+
+</html>

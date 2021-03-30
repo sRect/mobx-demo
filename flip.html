@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* * {
+      margin: 0;
+      height: 0;
+    } */
+
+    .container {
+      margin: 100px auto 0;
+      width: 450px;
+      height: 450px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .item {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 5px 8px;
+      cursor: pointer;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <button @click="handleShuffle">shuffle</button>
+    <div class="container">
+      <div class="item" v-for="item in arr" :key="item" ref="box">{{item}}</div>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#root',
+      // template: `
+      //   <div id="root">
+      //       <div class="container">
+      //         <div class="c-random__brand" v-for="item in arr" :key="item" ref="arr">{{item}}</div>  
+      //       </div>
+      //     <button @click="shuffle()">shuffle</button>
+      //   </div>
+      // `,
+      data() {
+        return {
+          arr: [...Array(81).keys()]
+        }
+      },
+      // watch: {
+      //   arr: {
+      //     handler: function() {
+      //       console.log("change")
+      //     },
+      //     immediate: true
+      //   }
+      // },
+      methods: {
+        // 打乱数组顺序-洗牌算法
+        // 每次从未处理的数组中随机取一个元素，然后把该元素放到数组的尾部，
+        // 即数组的尾部放的就是已经处理过的元素，以此循环处理
+        // https://github.com/ccforward/cc/issues/44
+        shuffleArr(arr) {
+          let len = arr.length;
+          while (len) {
+            const random = Math.floor(Math.random() * len);
+            len--;
+            // const lastNum = arr[len];
+            // const randomNum = arr[random];
+
+            // arr[len] = randomNum;
+            // arr[random] = lastNum;
+
+            // es6变量互换
+            [arr[len], arr[random]] = [arr[random], arr[len]];
+          }
+          return arr;
+        },
+        handleShuffle() {
+          // First
+          [...this.$refs.box].forEach(item => {
+            const { left, top } = item.getBoundingClientRect()
+            item.dataset.left = left
+            item.dataset.top = top
+            item.style.transition = 'unset'
+          });
+
+          this.arr.sort((a, b) => Math.random() - 0.5);
+
+          // this.arr = this.shuffleArr(this.arr);
+
+          // // 由于直接设置数组的索引，无法触发视图更新，所以采用Vue.set
+          // let old = this.arr[0];
+          // this.$set(this.arr, 0, Math.random());
+          // this.$set(this.arr, 0, old);
+
+          // 在nextTick中获取元素的最终位置
+          this.$nextTick(() => {
+            console.log("3333333333333");
+            [...this.$refs.box].forEach(item => {
+              // 第二步：Last
+              const { left: currentLeft, top: currentTop } = item.getBoundingClientRect();
+              const { left: oldLeft, top: oldTop } = item.dataset;
+              // 第三步：Invert
+              item.style.transform = `translate3d(${oldLeft - currentLeft}px, ${oldTop - currentTop}px, 0)`;
+            });
+
+            // [...this.$refs.box].forEach(el => {
+            //   const { left: currentLeft, top: currentTop } = el.getBoundingClientRect();
+            //   const { left: oldLeft, top: oldTop } = el.dataset;
+            //   var player = el.animate([
+            //     { transform: `translate3d(${oldLeft - currentLeft}px, ${oldTop - currentTop}px, 0)` },
+            //     { transform: 'translate3d(0, 0, 0)' }
+            //   ], {
+            //     duration: 500,
+            //     easing: 'cubic-bezier(0,0,0.32,1)',
+            //   });
+            // });
+          });
+
+          // Play
+          // requestAnimationFrame(() => {
+            // console.log("444444444444");
+          //   [...this.$refs.box].forEach(item => {
+          //     item.style.transform = `translate3d(0, 0, 0)`;
+          //     item.style.transition = 'all 1s';
+          //   });
+          // });
+          console.log("444444444444");
+          [...this.$refs.box].forEach(item => {
+            item.style.transform = `translate3d(0, 0, 0)`;
+            item.style.transition = 'all 1s';
+          });
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>
