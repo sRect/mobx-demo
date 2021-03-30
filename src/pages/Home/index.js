@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useObserver, observer } from "mobx-react-lite";
 import { toJS, reaction, when } from "mobx";
-import { Context } from "@/component/App";
+import { Context } from "@/App";
 
 // https://blog.csdn.net/roamingcode/article/details/95069891
 // function component
@@ -51,6 +51,9 @@ const Home = () => {
       <button onClick={() => store.increase()}>increase</button>
       &nbsp;
       <button onClick={() => store.decrease()}>decrease</button>
+      <br />
+      age: {store?.age} <br />
+      introduce: {store?.introduce} <br />
     </div>
   );
 };

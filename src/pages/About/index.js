@@ -25,6 +25,12 @@ class About extends Component {
         <button onClick={() => store.increase()}>increase</button>
         &nbsp;
         <button onClick={() => store.decrease()}>decrease</button>
+        <br />
+        age: {store?.age} <br />
+        introduce: {store?.introduce} <br />
+        <button onClick={() => store.increaseAge()}>increase</button>
+        &nbsp;
+        <button onClick={() => store.decreaseAge()}>decrease</button>
       </div>
     );
   }

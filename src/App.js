@@ -8,12 +8,14 @@ import {
 } from "react-router-dom";
 import { useLocalStore, observer, useLocalObservable } from "mobx-react-lite";
 import { Provider } from "mobx-react";
-import { createStore } from "./store";
-import Home from "@/component/Home";
-import About from "@/component/About";
-import FuncCom from "@/component/FuncCom";
+import store from "@/store";
+import Home from "@/pages/Home";
+import About from "@/pages/About";
+import FuncCom from "@/pages/FuncCom";
 
 export const Context = createContext(null);
+
+console.log("store App", store);
 
 const App = () => {
   // const store = useLocalStore(() => {
@@ -32,17 +34,17 @@ const App = () => {
   // });
 
   // 'useLocalStore' is deprecated, use 'useLocalObservable' instead.
-  const store = useLocalObservable(createStore);
+  const storeContext = useLocalObservable(() => store);
 
   return (
     <div>
       <hr />
-      <Context.Provider value={store}>
+      <Context.Provider value={storeContext}>
         {/* Provider 给子组件为mobx-react使用 */}
-        <Provider store={store}>
+        <Provider store={storeContext}>
           <Router>
-            <Link to="/">function hooks component </Link> | {" "}
-            <Link to="/func">function componet</Link>| {" "}
+            <Link to="/">function hooks component </Link> |{" "}
+            <Link to="/func">function componet</Link>|{" "}
             <Link to="/about">class componet</Link>
             <br />
             <Switch>
