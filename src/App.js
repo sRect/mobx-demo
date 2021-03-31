@@ -11,6 +11,7 @@ import { Provider } from "mobx-react";
 import store from "@/store";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
+import About2 from "@/pages/About2";
 import FuncCom from "@/pages/FuncCom";
 
 export const Context = createContext(null);
@@ -45,12 +46,13 @@ const App = () => {
           <Router>
             <Link to="/">function hooks component </Link> |{" "}
             <Link to="/func">function componet</Link>|{" "}
-            <Link to="/about">class componet</Link>
-            <br />
+            <Link to="/about">class component</Link>|{" "}
+            <Link to="/about2">class component2</Link>| <br />
             <Switch>
               <Route exact path="/" component={Home}></Route>
-              <Route exact path="/about" component={About}></Route>
               <Route exact path="/func" component={FuncCom}></Route>
+              <Route exact path="/about" component={About}></Route>
+              <Route exact path="/about2" component={About2}></Route>
               <Redirect to="/" />
             </Switch>
           </Router>
